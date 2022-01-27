@@ -1,0 +1,103 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+background-color: #CEE4FD;
+}
+
+.title {
+    text-align: center;
+    position:relative;
+    top: 90px;
+    font-family: 'Dosis', sans-serif;
+    
+}
+
+.listCtn{
+    border: none;
+    border-radius: 10px;
+    background-color: #FFF;
+    width: 70%;
+    height: 70vh;
+    margin: auto;
+    margin-top:100px;
+    display:flex;
+    flex-direction: column;
+}
+
+.inputs {
+    height: 12%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px 5px 0 5px;
+}
+
+ input {
+    height: 80%;
+    width: 77%;
+    border-radius: 5px;
+    border:1px solid grey;
+    text-indent:10px
+}
+
+.inputs button {
+    height: 80%;
+    width: 17%;
+    border-radius:5px;
+    border: none;
+    background-color: #CEFDE6;
+    color: grey;
+    font-family: 'Dosis', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 80%;
+    padding-bottom: 5px;
+}
+label {
+    text-align: center;
+}
+
+.list {
+    width: 100%;
+    height: 74%;
+}
+
+.listItem {
+    border: 2px solid red;
+    border-radius: 5px;
+    width: 95%;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    margin-top: 4px;
+    cursor:pointer;
+}
+
+
+.task {
+    width: 93%;
+    font-family: 'Dosis', sans-serif;
+    
+}
+
+.completeTask {
+    background-color: greenyellow;
+}
+
+.deleteButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border:none;
+    color: #FFFF;
+    background-color: red;
+}
