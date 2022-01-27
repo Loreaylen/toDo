@@ -57,7 +57,9 @@ background-color: #CEE4FD;
     font-size: 30px;
     line-height: 80%;
     padding-bottom: 5px;
+    cursor: pointer;
 }
+
 label {
     text-align: center;
 }
@@ -100,4 +102,25 @@ label {
     border:none;
     color: #FFFF;
     background-color: red;
+    cursor:pointer;
+}
+
+.deleteCompleted {
+    width: 300px;
+    height: 35px;
+    position: relative;
+    bottom: 0;
+    background-color: #ECCEF3;
+    border:none;
+    border-radius: 5px;
+    font-family: 'Dosis', sans-serif;
+    margin:auto;
+    cursor:pointer;
+
+
+}
+
+.deleteCompleted:disabled{ 
+  background-color: grey;
+  color: black;
 }

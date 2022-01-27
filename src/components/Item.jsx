@@ -8,7 +8,7 @@ const Item = ({el, complete, del}) => {
 
     return(
         
-             <div className={`listItem ${done && "completeTask" }`} key={el.id} onClick={() => complete(setDone)}>
+             <div className={`listItem ${done && "completeTask" }`} key={el.id} onClick={() => complete(setDone, el.id)}>
                 <p className="task">{el.task}</p>
                 <button className="deleteButton" onClick={() => del(el.id)}>X</button>
                 </div>

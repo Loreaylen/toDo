@@ -1,14 +1,12 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import "../List/List.css"
 import ToDoList from "../ToDoList/ToDoList"
 
 const List = () => {
 
-    const [list, setList] = useState([{
-        id: 1,
-        task: "test"
-    }])
+    const [list, setList] = useState([])
     const [input, setInput] = useState("") 
+    const [complete, setComplete] = useState(false)
 
     const onChangeHandler = (e) => {
         setInput(e.target.value)
@@ -17,12 +15,26 @@ const List = () => {
     const add = () => {
         setList([...list, {
             id: Math.floor(Math.random() * 10000),
-            task: input
+            task: input,
+            done: false
         }])
         setInput("")
-       
     }
 
+    const deleteCompleteTasks = () => {
+        const filtered = list.filter(x => x.done !== true)
+        setList(filtered)
+    }
+   
+
+    const del = (id) => {
+        const filtered = list.filter(x => {
+            console.log(x.id,id)
+            return  x.id !== id
+        })
+        console.log(filtered)
+        setList(filtered)
+        }   
 
     return (
         <div className="listCtn">
@@ -31,8 +43,9 @@ const List = () => {
                 <button onClick={() => add()}>+</button>
             </div>
             <div className="list">
-            <ToDoList list={list} setList={setList} />
+            <ToDoList list={list} setList={setList} del={del} />
             </div>
+            <button className="deleteCompleted" disabled={!complete} onClick={() => deleteCompleteTasks()}>Eliminar tareas completadas</button>
         </div>
     )
 }

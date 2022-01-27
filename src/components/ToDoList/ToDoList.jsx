@@ -1,24 +1,25 @@
 import React from "react"
 import Item from "../Item"
 
-const ToDoList = ({list, setList}) => {
+const ToDoList = ({list, setList, del}) => {
 
- const del = (id) => {
 
- const filtered = list.filter(x => x.id !== id)
 
- setList(filtered)
-
- }   
-
- const complete = (fn) => {
+ const complete = (fn, id) => {
   fn(true)
+  const newArr = list.map(x => {
+      if(x.id === id) {
+          x.done = true
+      }
+      return x
+  })
+  setList(newArr)
  }
 
 
     return(
         <div>
-            {list.map(el => <Item el={el} complete={complete} del={del}/>)}
+            {list.map(el => <Item key={el.id} el={el} complete={complete} del={del}/>)}
 
         </div>
     )
