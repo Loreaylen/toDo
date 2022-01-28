@@ -37,7 +37,7 @@ const List = () => {
         if(input !== ""){
             setList([...list, {
                 id: Math.floor(Math.random() * 10000),
-                task: input,
+                task: input.trim(),
                 done: false
             }])
            return setInput("")
