@@ -19,7 +19,11 @@ const ToDoList = ({list, setList, del}) => {
 
     return(
         <div>
-            {list.map(el => <Item key={el.id} el={el} complete={complete} del={del}/>)}
+            {list.map(el => <div key={el.id} className="itemCtn"> <Item key={el.id} el={el} complete={complete} del={del}/> 
+            <button className="deleteButton" onClick={() => del(el.id)}>X</button>
+            </div>)}
+            
+
 
         </div>
     )

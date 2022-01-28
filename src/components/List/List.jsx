@@ -8,6 +8,14 @@ const List = () => {
     const [input, setInput] = useState("") 
     const [complete, setComplete] = useState(false)
 
+    
+    const del = (id) => {
+        const filtered = list.filter(x => {
+            return  x.id !== id
+        })
+        setList(filtered)
+     };
+
     const onChangeHandler = (e) => {
         setInput(e.target.value)
     }
@@ -25,16 +33,12 @@ const List = () => {
         const filtered = list.filter(x => x.done !== true)
         setList(filtered)
     }
-   
 
-    const del = (id) => {
-        const filtered = list.filter(x => {
-            console.log(x.id,id)
-            return  x.id !== id
-        })
-        console.log(filtered)
-        setList(filtered)
-        }   
+    useEffect(() => {
+            const completedTasks = list.filter(x => x.done === true).length
+            completedTasks > 0 ? setComplete(true) : setComplete(false)
+    }, [list])
+  
 
     return (
         <div className="listCtn">

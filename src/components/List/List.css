@@ -84,6 +84,9 @@ label {
     cursor:pointer;
 }
 
+.itemCtn {
+    position:relative;
+}
 
 .task {
     width: 93%;
@@ -103,6 +106,9 @@ label {
     color: #FFFF;
     background-color: red;
     cursor:pointer;
+    position:absolute;
+    right: 3.5%;
+    top:10px;
 }
 
 .deleteCompleted {

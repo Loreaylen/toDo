@@ -5,12 +5,13 @@ const Item = ({el, complete, del}) => {
 
     const [done, setDone] = useState(false)
 
+    const id = el.id;
+
 
     return(
         
-             <div className={`listItem ${done && "completeTask" }`} key={el.id} onClick={() => complete(setDone, el.id)}>
+             <div className={`listItem ${done && "completeTask" }`} key={el.id} onClick={() => complete(setDone, id)}>
                 <p className="task">{el.task}</p>
-                <button className="deleteButton" onClick={() => del(el.id)}>X</button>
                 </div>
     
     )
