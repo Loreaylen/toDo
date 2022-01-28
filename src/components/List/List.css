@@ -29,6 +29,21 @@ background-color: #CEE4FD;
     flex-direction: column;
 }
 
+.list{
+    padding-bottom: 5px;
+    overflow-y: scroll;
+}
+
+.list::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(238, 237, 237);
+}
+
+.list::-webkit-scrollbar-thumb {
+    background: #ECCEF3; 
+    border-radius: 10px;       
+  }
+
 .inputs {
     height: 12%;
     display:flex;
