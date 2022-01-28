@@ -7,10 +7,11 @@ const Item = ({el, complete}) => {
 
     const id = el.id;
 
+    const borders = ["#FDCEE9", "#ECCEF3", "#DBCEFD", "#D5D9FD", "#CEE4FD", "#CEF1F2", "#CEFDE6" ]
 
     return(
         
-             <div className={`listItem ${done && "completeTask" }`} key={el.id} onClick={() => complete(setDone, id)}>
+             <div className={`listItem ${done && "completeTask" }`} style={{borderColor: borders[Math.floor(Math.random() * borders.length)]}} key={el.id} onClick={() => complete(setDone, id)}>
                 <p className="task">{el.task}</p>
                 </div>
     

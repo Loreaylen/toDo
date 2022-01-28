@@ -34,12 +34,15 @@ const List = () => {
     }
 
     const add = () => {
-        setList([...list, {
-            id: Math.floor(Math.random() * 10000),
-            task: input,
-            done: false
-        }])
-        setInput("")
+        if(input !== ""){
+            setList([...list, {
+                id: Math.floor(Math.random() * 10000),
+                task: input,
+                done: false
+            }])
+           return setInput("")
+        }
+        return alert("Escribi algo")
     }
 
     const deleteCompleteTasks = () => {
