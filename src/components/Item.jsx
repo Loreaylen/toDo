@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import "../components/List/List.css"
 
-const Item = ({el, complete, del}) => {
+const Item = ({el, complete}) => {
 
     const [done, setDone] = useState(false)
 

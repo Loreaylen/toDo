@@ -4,11 +4,24 @@ import ToDoList from "../ToDoList/ToDoList"
 
 const List = () => {
 
-    const [list, setList] = useState([])
+    const [list, setList] = useState(() => {
+        try {
+                const data = JSON.parse(window.localStorage.getItem("Listado"))
+                return data
+                
+        } catch {
+            return []
+        }
+    })
     const [input, setInput] = useState("") 
     const [complete, setComplete] = useState(false)
 
-    
+    const setLocalStorage = (data) => {
+        window.localStorage.setItem("Listado", JSON.stringify(list))
+    }
+
+   
+
     const del = (id) => {
         const filtered = list.filter(x => {
             return  x.id !== id
@@ -37,9 +50,10 @@ const List = () => {
     useEffect(() => {
             const completedTasks = list.filter(x => x.done === true).length
             completedTasks > 0 ? setComplete(true) : setComplete(false)
+            setLocalStorage(list)
+
     }, [list])
   
-
     return (
         <div className="listCtn">
             <div className="inputs">
