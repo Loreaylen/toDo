@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useCallback} from "react"
 import "../List/List.css"
-import ToDoList from "../ToDoList/ToDoList"
+import Item from "../Item"
 
 const List = () => {
 
@@ -14,9 +14,10 @@ const List = () => {
         }
     })
     const [input, setInput] = useState("") 
+
     const [complete, setComplete] = useState(false)
 
-    const setLocalStorage = (data) => {
+    const setLocalStorage = () => {
         window.localStorage.setItem("Listado", JSON.stringify(list))
     }
 
@@ -29,9 +30,6 @@ const List = () => {
         setList(filtered)
      };
 
-    const onChangeHandler = (e) => {
-        setInput(e.target.value)
-    }
 
     const add = () => {
         if(input !== ""){
@@ -50,6 +48,20 @@ const List = () => {
         setList(filtered)
     }
 
+    console.log("List")
+
+    const fullfiled = useCallback((fn, id) => {
+        fn(true)
+        const newArr = list.map(x => {
+            if(x.id === id) {
+                x.done = true
+            }
+            return x
+        })
+        setList(newArr)
+       }, [list])
+
+
     useEffect(() => {
             const completedTasks = list.filter(x => x.done === true).length
             completedTasks > 0 ? setComplete(true) : setComplete(false)
@@ -60,15 +72,18 @@ const List = () => {
     return (
         <div className="listCtn">
             <div className="inputs">
-                <input id="toDo"  onChange={onChangeHandler} value={input}></input>
+                <input id="toDo"  onChange={(e) => setInput(e.target.value)} value={input}  onKeyDown={(e) => {if(e.key === "Enter"){add()}}}></input>
                 <button onClick={() => add()}>+</button>
             </div>
+
             <div className="list">
-            <ToDoList list={list} setList={setList} del={del} />
+            {list.map(el => <div key={el.id} className="itemCtn"> <Item el={el} fullfiled={fullfiled} /> 
+            <button className="deleteButton" onClick={() => del(el.id)}>X</button>
+            </div>)}
             </div>
             <button className="deleteCompleted" disabled={!complete} onClick={() => deleteCompleteTasks()}>Eliminar tareas completadas</button>
         </div>
     )
 }
 
-export default List
+export default React.memo(List)
