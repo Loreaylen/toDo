@@ -11,9 +11,9 @@ const Item = ({el, fullfiled}) => {
 
     return(
         
-             <div className={`listItem ${done && "completeTask" }`} style={{borderColor: borders[Math.floor(Math.random() * borders.length)]}} key={el.id} onClick={() => fullfiled(setDone, id)}>
+             <div className={`listItem ${done && "completeTask" }`} style={{borderColor: borders[Math.floor(Math.random() * borders.length)]}} key={el.id} onClick={() => fullfiled(setDone, id, done)}>
                 <p className="task">{el.task}</p>
-                <p className="time">{el.date}</p>
+                <p className="time">{el.done ? el.completeDate : el.date}</p>
                 </div>
     
     )

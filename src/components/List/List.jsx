@@ -59,13 +59,17 @@ useEffect(() => {
     }
 
 
-    const fullfiled = useCallback((fn, id) => {
-        fn(true)
+    const fullfiled = useCallback((fn, id, doneState) => {
+        fn(!doneState)
         const newArr = list?.map(x => {
             if(x.id === id) {
                 const completeDate = new Date()
-                x.done = true
-                x.date = `${completeDate.getDate()}/${completeDate.getMonth()+1}/${completeDate.getFullYear()} ${completeDate.getHours()}:${completeDate.getMinutes()}`
+                const completeDateString = `${completeDate.getDate()}/${completeDate.getMonth()+1}/${completeDate.getFullYear()} ${completeDate.getHours()}:${completeDate.getMinutes()}`
+                const oldDate = x.date
+                x.done = !doneState
+                x.completeDate = completeDateString
+                console.log(oldDate)
+                console.log(completeDateString)
             }
             return x
         })
