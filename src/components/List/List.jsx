@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from "react"
 import "../List/List.css"
 import Item from "../Item"
+import EditIcon from '@mui/icons-material/Edit';
 
 const List = () => {
 
@@ -18,6 +19,12 @@ const List = () => {
     const [charCount, setCharcount] = useState(0)
 
     const [complete, setComplete] = useState(false)
+    
+    const [editing, setEditing] = useState(false)
+    
+    const [editValue, setEditvalue] = useState("")
+
+    const [editID, setEditID] = useState()
 
     const setLocalStorage = () => {
         window.localStorage.setItem("Listado", JSON.stringify(list))
@@ -50,7 +57,7 @@ useEffect(() => {
             }])
            return setInput("")
         }
-        return alert("Escribi algo")
+        return alert("Escribe algo")
     }
 
     const deleteCompleteTasks = () => {
@@ -58,24 +65,36 @@ useEffect(() => {
         setList(filtered)
     }
 
-
     const fullfiled = useCallback((fn, id, doneState) => {
         fn(!doneState)
         const newArr = list?.map(x => {
             if(x.id === id) {
                 const completeDate = new Date()
                 const completeDateString = `${completeDate.getDate()}/${completeDate.getMonth()+1}/${completeDate.getFullYear()} ${completeDate.getHours()}:${completeDate.getMinutes()}`
-                const oldDate = x.date
                 x.done = !doneState
                 x.completeDate = completeDateString
-                console.log(oldDate)
-                console.log(completeDateString)
             }
             return x
         })
         setList(newArr)
        }, [list])
 
+       const handleEdit = (id) => {
+        setEditID(id)
+        setEditing(true)
+
+    }
+
+    const editTask = () =>{
+      const newArr = list?.map(x =>{ 
+            if(x.id === editID){
+                x.task = editValue
+            }
+            return x
+        })
+        setList(newArr)
+        setEditing(false)
+    }
 
     useEffect(() => {
             const completedTasks = list?.filter(x => x.done === true).length
@@ -83,6 +102,7 @@ useEffect(() => {
             setLocalStorage(list)
 
     }, [list])
+
   
     return (
         <div className="listCtn">
@@ -93,9 +113,18 @@ useEffect(() => {
             </div>
 
             <div className="list">
-            {list?.map(el => <div key={el.id} className="itemCtn"> <Item el={el} fullfiled={fullfiled} /> 
+            { editing ? 
+            
+             <div className="editingCtn">
+             <input type="text" maxLength={50} onChange={(e) => setEditvalue(e.target.value)}></input>
+             <button className="completeEditing" onClick={() => editTask()}>V</button>
+             </div>
+             :
+            list?.map(el => <div key={el.id} className="itemCtn"> <Item el={el} fullfiled={fullfiled} /> 
             <button className="deleteButton" onClick={() => del(el.id)}>X</button>
-            </div>)}
+            <button className="editTask" onClick={() => handleEdit(el.id)}><EditIcon/></button>
+            </div>)
+           }
             </div>
             <button className="deleteCompleted" disabled={!complete} onClick={() => deleteCompleteTasks()}>Eliminar tareas completadas</button>
         </div>
