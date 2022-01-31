@@ -13,7 +13,7 @@ const Item = ({el, fullfiled}) => {
 
     return(
         
-             <div className={`listItem`} style={{borderColor: color, backgroundColor: `${done ? color : "transparent"}`}} key={el.id} onClick={() => fullfiled(setDone, id, done)}>
+             <div className="listItem" style={{borderColor: color, backgroundColor: `${done ? color : "transparent"}`}} key={el.id} onClick={() => fullfiled(setDone, id, done)}>
                 <p className="task">{el.task}</p>
                 <p className="time">{el.done ? el.completeDate : el.date}</p>
                 </div>

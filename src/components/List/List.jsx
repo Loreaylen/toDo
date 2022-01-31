@@ -2,7 +2,8 @@ import React, {useState, useEffect, useCallback} from "react"
 import "../List/List.css"
 import Item from "../Item"
 import EditIcon from '@mui/icons-material/Edit';
-
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CancelIcon from '@mui/icons-material/Cancel';
 const List = () => {
 
     const [list, setList] = useState(() => {
@@ -86,7 +87,8 @@ useEffect(() => {
     }
 
     const editTask = () =>{
-      const newArr = list?.map(x =>{ 
+       if(editValue.length > 0){
+        const newArr = list?.map(x =>{ 
             if(x.id === editID){
                 x.task = editValue
             }
@@ -94,6 +96,9 @@ useEffect(() => {
         })
         setList(newArr)
         setEditing(false)
+       } 
+       else alert("Escribe algo")
+      
     }
 
     useEffect(() => {
@@ -117,12 +122,12 @@ useEffect(() => {
             
              <div className="editingCtn">
              <input type="text" maxLength={50} onChange={(e) => setEditvalue(e.target.value)}></input>
-             <button className="completeEditing" onClick={() => editTask()}>V</button>
+             <button className="completeEditing" onClick={() => editTask()}><CheckBoxIcon style={{fontSize: "48px", color: "green"}}/></button>
              </div>
              :
             list?.map(el => <div key={el.id} className="itemCtn"> <Item el={el} fullfiled={fullfiled} /> 
-            <button className="deleteButton" onClick={() => del(el.id)}>X</button>
-            <button className="editTask" onClick={() => handleEdit(el.id)}><EditIcon/></button>
+            <button className="deleteButton" onClick={() => del(el.id)}><CancelIcon  style={{fontSize: "30px"}}/></button>
+            <button className="editTask" onClick={() => handleEdit(el.id)}><EditIcon style={{color: "grey", fontSize: "20px", paddingTop:"2px"}}/></button>
             </div>)
            }
             </div>
