@@ -41,9 +41,11 @@ useEffect(() => {
 
     const add = () => {
         if(input !== ""){
+            const newDate = new Date()
             setList([...list, {
                 id: Math.floor(Math.random() * 10000),
                 task: input.trim(),
+                date: `${newDate.getDate()}/${newDate.getMonth()+1}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`,
                 done: false
             }])
            return setInput("")
@@ -61,7 +63,9 @@ useEffect(() => {
         fn(true)
         const newArr = list?.map(x => {
             if(x.id === id) {
+                const completeDate = new Date()
                 x.done = true
+                x.date = `${completeDate.getDate()}/${completeDate.getMonth()+1}/${completeDate.getFullYear()} ${completeDate.getHours()}:${completeDate.getMinutes()}`
             }
             return x
         })
@@ -79,8 +83,8 @@ useEffect(() => {
     return (
         <div className="listCtn">
             <div className="inputs">
-                <input type="text" maxLength={150} id="toDo"  onChange={(e) => onChangeHandler(e)} value={input}  onKeyDown={(e) => {if(e.key === "Enter"){add()}}}></input>
-                <span className="charCount">{charCount}/150</span>
+                <input type="text" maxLength={50} id="toDo"  onChange={(e) => onChangeHandler(e)} value={input}  onKeyDown={(e) => {if(e.key === "Enter"){add()}}}></input>
+                <span className="charCount">{charCount}/50</span>
                 <button onClick={() => add()}>+</button>
             </div>
 

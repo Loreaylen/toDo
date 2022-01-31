@@ -117,6 +117,13 @@ label {
     
 }
 
+.time {
+    font-size: 12px;
+    position: relative;
+    right: 10px;
+
+}
+
 .completeTask {
     background-color: greenyellow;
 }

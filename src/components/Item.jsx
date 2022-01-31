@@ -13,6 +13,7 @@ const Item = ({el, fullfiled}) => {
         
              <div className={`listItem ${done && "completeTask" }`} style={{borderColor: borders[Math.floor(Math.random() * borders.length)]}} key={el.id} onClick={() => fullfiled(setDone, id)}>
                 <p className="task">{el.task}</p>
+                <p className="time">{el.date}</p>
                 </div>
     
     )
