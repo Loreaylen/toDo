@@ -5,15 +5,17 @@ import Item from "../Item"
 const List = () => {
 
     const [list, setList] = useState(() => {
-        try {
+
+            if(JSON.parse(window.localStorage.getItem("Listado")) !== null){
                 const data = JSON.parse(window.localStorage.getItem("Listado"))
                 return data
-                
-        } catch {
-            return []
-        }
+            }    
+              return []  
+    
     })
     const [input, setInput] = useState("") 
+
+    const [charCount, setCharcount] = useState(0)
 
     const [complete, setComplete] = useState(false)
 
@@ -21,7 +23,13 @@ const List = () => {
         window.localStorage.setItem("Listado", JSON.stringify(list))
     }
 
-   
+const onChangeHandler = (e) => {
+    setInput(e.target.value)
+}
+
+useEffect(() => {
+    setCharcount(input.length)
+}, [input])
 
     const del = (id) => {
         const filtered = list.filter(x => {
@@ -44,15 +52,14 @@ const List = () => {
     }
 
     const deleteCompleteTasks = () => {
-        const filtered = list.filter(x => x.done !== true)
+        const filtered = list?.filter(x => x.done !== true)
         setList(filtered)
     }
 
-    console.log("List")
 
     const fullfiled = useCallback((fn, id) => {
         fn(true)
-        const newArr = list.map(x => {
+        const newArr = list?.map(x => {
             if(x.id === id) {
                 x.done = true
             }
@@ -63,7 +70,7 @@ const List = () => {
 
 
     useEffect(() => {
-            const completedTasks = list.filter(x => x.done === true).length
+            const completedTasks = list?.filter(x => x.done === true).length
             completedTasks > 0 ? setComplete(true) : setComplete(false)
             setLocalStorage(list)
 
@@ -72,12 +79,13 @@ const List = () => {
     return (
         <div className="listCtn">
             <div className="inputs">
-                <input id="toDo"  onChange={(e) => setInput(e.target.value)} value={input}  onKeyDown={(e) => {if(e.key === "Enter"){add()}}}></input>
+                <input type="text" maxLength={150} id="toDo"  onChange={(e) => onChangeHandler(e)} value={input}  onKeyDown={(e) => {if(e.key === "Enter"){add()}}}></input>
+                <span className="charCount">{charCount}/150</span>
                 <button onClick={() => add()}>+</button>
             </div>
 
             <div className="list">
-            {list.map(el => <div key={el.id} className="itemCtn"> <Item el={el} fullfiled={fullfiled} /> 
+            {list?.map(el => <div key={el.id} className="itemCtn"> <Item el={el} fullfiled={fullfiled} /> 
             <button className="deleteButton" onClick={() => del(el.id)}>X</button>
             </div>)}
             </div>

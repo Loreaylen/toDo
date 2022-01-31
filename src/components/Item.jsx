@@ -3,15 +3,11 @@ import "../components/List/List.css"
 
 const Item = ({el, fullfiled}) => {
 
-
-
-    const [done, setDone] = useState(false)
+    const [done, setDone] = useState(el.done)
 
     const id = el.id;
 
     const borders = ["#FDCEE9", "#ECCEF3", "#DBCEFD", "#D5D9FD", "#CEE4FD", "#CEF1F2", "#CEFDE6" ]
-
-    console.log("item")
 
     return(
         
